@@ -18,6 +18,15 @@ function App() {
     setTodoItems([...todoItems, newItem]);
   };
 
+  const handleCheckboxChange = (todoId) => {
+    // Toggle checked state logic here
+    console.log("Toggle Checkbox", todoId);
+    const updatedItems = todoItems.map((item) =>
+      item.id === todoId ? { ...item, checked: !item.checked } : item
+    );
+    setTodoItems(updatedItems);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -29,21 +38,46 @@ function App() {
   return (
     <div>
       <h2>TODO LİST </h2>
-      <Box sx={{ flexGrow: 2 }}>
-        <Grid container spacing={1}>
-          <Grid item xs={0} md={3} lg={3}></Grid>
-          <Grid item xs={12} md={6} lg={6}>
-            <TodoForm>xs=8</TodoForm>
+      <Box sx={{ flexGrow: 20 }}>
+        <Grid container>
+          <Grid xs={0} md={3} lg={3}></Grid>
+          <Grid sx={{ flexGrow: 1 }} xs={12} md={6} lg={6}>
+            <TodoForm></TodoForm>
+            <TodoList
+              addTodoItem={addTodoItem}
+              todoItems={todoItems}
+              onToggle={handleCheckboxChange}
+            />
             <AddTodoItemModal
               open={open}
               handleClose={handleClose}
               addTodoItem={addTodoItem}
             ></AddTodoItemModal>
-            <TodoList addTodoItem={addTodoItem} todoItems={todoItems} />
           </Grid>
-          <Grid item xs={0} md={3} lg={3}>
-            <Button variant="outlined" onClick={handleClickOpen}>
-              Slide in alert dialog
+          <Grid xs={0} md={3} lg={3}>
+            <Button
+              variant="outlined"
+              onClick={handleClickOpen}
+              sx={{
+                backgroundColor: "#6C63FF",
+                color: "#ffffff",
+                w: "10px",
+                "&:hover": {
+                  backgroundColor: "#534CC2",
+                },
+                position: "absolute",
+                top: "90vh",
+                right: "20rem",
+                borderRadius: "50%",
+                width: "50px",
+                height: "50px",
+                fontSize: "24px",
+                "&:focus": {
+                  outline: "none",
+                },
+              }}
+            >
+              +
             </Button>
           </Grid>
         </Grid>

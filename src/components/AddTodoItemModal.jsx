@@ -12,10 +12,15 @@ const AddTodoItemModal = ({ open, handleClose, addTodoItem }) => {
   const [title, setTitle] = useState("");
 
   const appleTodoItem = () => {
-    addTodoItem({ title });
+    addTodoItem({
+      title,
+      id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+      checked: false,
+    });
     setTitle("");
     handleClose();
   };
+
   return (
     <div>
       <Dialog
